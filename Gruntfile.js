@@ -7,6 +7,21 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
+    /* Watch tasks
+    --------------------------------------------- */
+    watch: {
+        options: {
+          livereload: true // Set livereload to trigger a reload upon change
+        },
+
+        all: {
+          files: 'index.html', // Change this if you are not watching index.html
+          options: {
+            livereload: true  // Set livereload to trigger a reload upon change
+          }
+        }
+    },
+
     /* Server
     --------------------------------------------- */
     connect: {
@@ -14,7 +29,8 @@ module.exports = function(grunt) {
         options: {
           port: 9001,
           keepalive: true,
-          base: './'
+          base: './index.html',
+          livereload: 35729
         }
       }
     }
@@ -25,11 +41,12 @@ module.exports = function(grunt) {
    * Load plugin tasks
    */
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   /**
    * Register tasks
    */
-  grunt.registerTask('build', ['connect']);
+  grunt.registerTask('build', ['watch', 'connect:livereload']);
 
 // END Grunt module
 };

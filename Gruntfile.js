@@ -7,30 +7,28 @@ module.exports = function(grunt) {
 
     pkg: grunt.file.readJSON('package.json'),
 
-    /* Watch tasks
-    --------------------------------------------- */
-    watch: {
-        options: {
-          livereload: true // Set livereload to trigger a reload upon change
-        },
-
-        all: {
-          files: 'index.html', // Change this if you are not watching index.html
-          options: {
-            livereload: true  // Set livereload to trigger a reload upon change
-          }
-        }
-    },
-
     /* Server
     --------------------------------------------- */
     connect: {
-      server: {
+      options: {
+        port: 9001,
+        livereload: 9001
+      },
+      livereload: {
         options: {
-          port: 9001,
-          keepalive: true,
-          base: './index.html',
-          livereload: 35729
+          open: true,
+          base: './'
+        }
+      }
+    },
+
+    /* Watch tasks
+    --------------------------------------------- */
+    watch: {
+      all: {
+        files: 'index.html',
+        options: {
+          livereload: 9001
         }
       }
     }
@@ -46,7 +44,7 @@ module.exports = function(grunt) {
   /**
    * Register tasks
    */
-  grunt.registerTask('build', ['watch', 'connect:livereload']);
+  grunt.registerTask('build', ['connect:livereload', 'watch']);
 
 // END Grunt module
 };
